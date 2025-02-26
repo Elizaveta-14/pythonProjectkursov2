@@ -10,3 +10,24 @@ class HeadHunterAPI(ABC):
     def get_vacancies(self, search_query: str, page: int = 1):
         """Метод для получения списка вакансий по поисковому запросу"""
         pass
+
+
+
+
+class Perser(ABC):
+    """ абстрактный класс"""
+    @abstractmethod
+    def __init__(self):
+        pass
+
+    @abstractmethod
+    def add_to_file(self, vacancies):
+        pass
+
+    @abstractmethod
+    def read_data_json(self):
+        pass
+
+    @abstractmethod
+    def return_vacancies(self):
+        pass

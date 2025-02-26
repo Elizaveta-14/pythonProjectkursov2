@@ -2,7 +2,7 @@ from typing import Dict, List
 import requests
 from src.base import HeadHunterAPI
 
-class HeadhunterAPI(HeadHunterAPI):
+class HeadAPI(HeadHunterAPI):
     def __init__(self, base_url="https://api.hh.ru/vacancies") -> None:
         self.base_url = base_url
 

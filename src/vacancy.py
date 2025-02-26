@@ -1,70 +1,39 @@
-from src.api_hh import HeadHunterAPI
-import requests
-from typing import Dict, List
-from src.zero_vacancies import ZeroVacanciesException
-from typing import Any
-class HeadWorck:
-    """
-    Класс для работы с API HeadHunter
-    Класс Parser является родительским классом, который вам необходимо реализовать
-    """
-    __slots__ = ("url", "headers", "params", "vacancies")
-    def __init__(self, file_worker):
-        self.url = 'https://api.hh.ru/vacancies'
-        self.headers = {'User-Agent': 'HH-User-Agent'}
-        self.params = {'text': '', 'page': 0, 'per_page': 100}
-        self.vacancies = []
-        super().__init__(file_worker)
+from pandas import DataFrame
 
-    def load_vacancies(self, keyword):
-        self.params['text'] = keyword
-        while self.params.get('page') != 20:
-            response = requests.get(self.url, headers=self.headers, params=self.params)
-            vacancies = response.json()['items']
-            self.vacancies.extend(vacancies)
-            self.params['page'] += 1
-            super().__init__()
+
+class Vacancy:
+    """ Класс для работы с вакансиями """
+    dataset: dict
+    df_categories: DataFrame
+
+    def __init__(self, name: str, url: str, salary, vacancy: str):
+        """Инициализация элементов проверки """
+        self.name = name
+        self.url = url
+        self.vacancy = vacancy
+        self.__validate_salary(salary)
+
+    def __validate_salary(self, salary):
+        """ валидация по зарплате """
+        if salary:
+            self.salary_from = salary['from'] if salary['from'] else 0
+            self.salary_to = salary['to'] if salary['to'] else 0
+        else:
+            self.salary_from = 0
+            self.salary_to = 0
 
 
     def __str__(self):
         return f"{self.url}, количество вакансии: {len(self.__vacancies)} "
 
-
-    def add_vacancies(self,new_vacancies: List[Dict], params: int) -> Any:
-        """Добавление вакансии"""
-        if isinstance(new_vacancies, params):
-            try:
-                if new_vacancies.params == 0:
-                    raise ZeroVacanciesException(
-                        "Нельзя добавить Добавить вакансию с нулевыми параметрами"
-                    )
-            except ZeroVacanciesException as e:
-                print(str(e))
-            else:
-                self.vacancies.append(new_vacancies)
-                new_vacancies.params['page'] += 1
-                print("Вакансия успешно добавлена")
-            finally:
-                print("Обработка вакансии успешно завершена")
+    def __validate_salary(self, salary):
+        """ валидация по зарплате """
+        if salary:
+            self.salary_from = salary['from'] if salary['from'] else 0
+            self.salary_to = salary['to'] if salary['to'] else 0
         else:
-            raise TypeError
-        return new_vacancies
-
-    def filter_words(self, vacancies: List[Dict], keyword,) -> List[Dict]:
-        """Фильтрует вакансии по ключевому слову"""
-        return [vacancy for vacancy in vacancies if keyword.lower() in vacancy[""].lower()]
-
-    def __delitem__(self, keyword) -> List[Dict]:
-        """Удаляет вакансии"""
-        if isinstance(keyword, int):
-            del self.vacancies[keyword]
-        elif isinstance(keyword, list):
-            for vacancies in keyword:
-                while vacancies in self.vacancies:
-                    self.vacancies.remove(vacancies)
-        else:
-            raise TypeError("Ключевое слово не найдено")
-
+            self.salary_from = 0
+            self.salary_to = 0
 
     def __eq__(self, other: object, vacancy) -> bool:
         """Сравнение на равенство по минимальной зарплате"""
