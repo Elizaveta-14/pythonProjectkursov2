@@ -6,14 +6,14 @@ class HH(Perser):
    """Класс для работы с файлами"""
    info_about_vacancies: list = []
 
-   def __init__(self, patch: str = "data/data.json"):
-       self.__path = patch
+   def __init__(self, path: str = "data/data.json"):
+       self.__path = path
        self.info_about_vacancies =[]
 
 
    def add_to_file(self, vacancies: list[[dict]]):
        """Функция добовляет данные в формат json"""
-       with open(self.__patch, "w", encoding="utf-8") as json_file:
+       with open(self.__path, "w", encoding="utf-8") as json_file:
            json.dump(vacancies, json_file, ensure_ascii=False, indent=4)
 
 
@@ -23,10 +23,10 @@ class HH(Perser):
             with open(self.__path, 'r', encoding='utf-8') as json_file:
                 data = json.load(json_file)
             vacancies = []
-            for vacancy in data['items']:
+            for vacancy in data:
                 vacancies.append(Vacancy(
                     vacancy['name'],
-                    vacancy['apply_alternate_url'],
+                    vacancy['url'],
                     vacancy['salary'],
                     vacancy['area']['name']
                 ))

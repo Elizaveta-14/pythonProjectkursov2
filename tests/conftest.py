@@ -1,5 +1,5 @@
 from src.api_hh import HeadAPI
-from src.vacancy import HeadWorck
+from src.vacancy import Vacancy
 import pytest
 import os
 
@@ -14,3 +14,5 @@ def mock_hh_api():
     """Создаем mock-объект для HHJobPlatform."""
     platform = HeadAPI(base_url="https://api.hh.ru/vacancies")
     return platform
+
+

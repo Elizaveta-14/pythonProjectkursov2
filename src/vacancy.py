@@ -10,6 +10,7 @@ class Vacancy:
         """Инициализация элементов проверки """
         self.name = name
         self.url = url
+        self.salary = 0
         self.vacancy = vacancy
         self.__validate_salary(salary)
 
@@ -21,6 +22,8 @@ class Vacancy:
         else:
             self.salary_from = 0
             self.salary_to = 0
+
+        self.salary = self.salary_from
 
 
     def __str__(self):
@@ -35,37 +38,37 @@ class Vacancy:
             self.salary_from = 0
             self.salary_to = 0
 
-    def __eq__(self, other: object, vacancy) -> bool:
+    def __eq__(self, other: "Vacancy") -> bool:
         """Сравнение на равенство по минимальной зарплате"""
-        if isinstance(other, vacancy):
+        if isinstance(other, Vacancy):
             return self.salary == other.salary
         return NotImplemented
 
-    def __lt__(self, other: object, vacancy) -> bool:
+    def __lt__(self, other: "Vacancy") -> bool:
         """Сравнение меньшей по минимальной зарплате"""
-        if isinstance(other, vacancy):
+        if isinstance(other, Vacancy):
             return self.salary < other.salary
         return NotImplemented
 
-    def __le__(self, other: object, vacancy) -> bool:
+    def __le__(self, other: "Vacancy") -> bool:
         """Сравнение на меньше ил ровно по минимальной зарплате"""
-        if isinstance(other, vacancy):
+        if isinstance(other, Vacancy):
             return self.salary <= other.salary
         return NotImplemented
 
-    def __gt__(self, other: object, vacancy) -> bool:
+    def __gt__(self, other: "Vacancy") -> bool:
         """Сравнение на больше по минимальной зарплате"""
-        if isinstance(other, vacancy):
+        if isinstance(other, Vacancy):
             return self.salary > other.salary
         return NotImplemented
 
-    def __ge__(self, other: object, vacancy) -> bool:
+    def __ge__(self, other: "Vacancy") -> bool:
         """Сравнение на ,больше или ровно по минимальной зарплате"""
-        if isinstance(other, vacancy):
+        if isinstance(other, Vacancy):
             return self.salary >= other.salary
         return NotImplemented
 
     def __repr__(self) -> str:
         """Представление объекту"""
-        return f"vacancy(title={self.name}, salary={self.salary}"
+        return f"Vacancy(title={self.name}, salary={self.salary}"
     
