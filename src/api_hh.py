@@ -1,11 +1,13 @@
 from typing import Dict, List
+
 import requests
+
 from src.base import HeadHunterAPI
+
 
 class HeadAPI(HeadHunterAPI):
     def __init__(self, base_url="https://api.hh.ru/vacancies") -> None:
         self.base_url = base_url
-
 
     def connect(self) -> True:
         """Проверяет подключение к API"""
@@ -15,8 +17,6 @@ class HeadAPI(HeadHunterAPI):
             return True
         except requests.exceptions.RequestException as e:
             print(f"Ошибка подключения: {e}")
-
-
 
     def get_vacancies(self, search_query: str, per_page: int = 20) -> List[Dict]:
         """Получаем вакансии с платформы"""

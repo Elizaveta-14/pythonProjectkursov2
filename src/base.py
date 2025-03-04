@@ -1,10 +1,10 @@
 from abc import ABC, abstractmethod
 
+
 class HeadHunterAPI(ABC):
     @abstractmethod
     def connect(self):
         pass
-
 
     @abstractmethod
     def get_vacancies(self, search_query: str, page: int = 1):
@@ -12,10 +12,9 @@ class HeadHunterAPI(ABC):
         pass
 
 
+class Parser(ABC):
+    """абстрактный класс"""
 
-
-class Perser(ABC):
-    """ абстрактный класс"""
     @abstractmethod
     def __init__(self):
         pass
