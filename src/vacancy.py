@@ -3,16 +3,19 @@ from pandas import DataFrame
 
 class Vacancy:
     """Класс для работы с вакансиями"""
+    __slots__ = ("__name","__url","__salary", "__area", "salary_from", "salary_to")
 
     dataset: dict
     df_categories: DataFrame
 
-    def __init__(self, name: str, url: str, salary, vacancy: str):
+    def __init__(self, name, url, salary, area):
         """Инициализация элементов проверки"""
-        self.name = name
-        self.url = url
-        self.vacancy = vacancy
+        self.__name = name
+        self.__url = url
+        self.__area = area
         self.__validate_salary(salary)
+
+
 
     def __validate_salary(self, salary):
         """Валидация по зарплате"""
@@ -57,3 +60,27 @@ class Vacancy:
     def __repr__(self) -> str:
         """Представление объекту"""
         return f"Vacancy(title={self.name}, salary={self.salary_from}"
+
+    @property
+    def name(self):
+        return self.__name
+
+    @name.setter
+    def name(self, value):
+        self.__name = value
+
+    @property
+    def url(self):
+        return self.__url
+
+    @url.setter
+    def url(self, value):
+        self.__url = value
+
+    @property
+    def vacancy(self):
+        return self.__area
+
+    @vacancy.setter
+    def vacancy(self, value):
+        self.__area = value

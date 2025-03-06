@@ -13,6 +13,7 @@ class HH(Parser):
         self.__path = path
         self.info_about_vacancies = []
 
+
     def add_to_file(self, vacancies: List[Dict]):
         """Функция добовляет данные в формат json"""
         with open(self.__path, "w", encoding="utf-8") as json_file:
@@ -30,7 +31,8 @@ class HH(Parser):
                         vacancy["name"],
                         vacancy["url"],
                         vacancy["salary"],
-                        vacancy["area"]["name"],
+                        vacancy["area"]["name"]
+
                     )
                 )
 
