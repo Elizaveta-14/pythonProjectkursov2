@@ -3,16 +3,16 @@ from pandas import DataFrame
 
 class Vacancy:
     """Класс для работы с вакансиями"""
-    __slots__ = ("__name","__url","__salary", "__area", "salary_from", "salary_to")
+    __slots__ = ("__name","__url","__salary", "__vacancy", "salary_from", "salary_to")
 
     dataset: dict
     df_categories: DataFrame
 
-    def __init__(self, name, url, salary, area):
+    def __init__(self, name, url, salary, vacancy):
         """Инициализация элементов проверки"""
         self.__name = name
         self.__url = url
-        self.__area = area
+        self.__vacancy = vacancy
         self.__validate_salary(salary)
 
 
@@ -79,8 +79,8 @@ class Vacancy:
 
     @property
     def vacancy(self):
-        return self.__area
+        return self.__vacancy
 
     @vacancy.setter
     def vacancy(self, value):
-        self.__area = value
+        self.__vacancy = value

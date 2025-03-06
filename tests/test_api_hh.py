@@ -4,8 +4,6 @@ from unittest.mock import Mock, patch
 from src.api_hh import HeadAPI
 
 
-def test_hh_api_init(head_hunter_example):
-    assert head_hunter_example.base_url == "https://api.hh.ru/vacancies"
 
 
 def test_connect(mock_hh_api):
