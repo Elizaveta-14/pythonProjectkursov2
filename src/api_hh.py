@@ -1,8 +1,8 @@
-from http.client import responses
+
 from typing import Dict, List
 
 import requests
-from pandas.io.sql import execute
+
 
 
 class HeadAPI():
@@ -19,10 +19,10 @@ class HeadAPI():
         """Загрузка работадателей"""
         employers_info = []
         for employer_id in self.employers:
-            temp_url = f"{self.__url}employer/{employer_id}"
+            temp_url = f"{self.__url}employers/{employer_id}"
             employer_data = requests.get(temp_url).json()
             employers_info.append(employer_data)
-
+#        print(employers_info)
         return employers_info
 
     def load_vacancies(self):
