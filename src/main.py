@@ -1,19 +1,19 @@
-import os
-import re
 from src.DBCreate_modul import create_database, save_data_to_database
-import pandas as pd
-from src.config import config
+from config import config
 from src.api_hh import HeadAPI
 from src.DBManager_modul import DBManager
 
 
 
 
-def main():
+
+def main() -> None:
     """Функция для работы прогрaммы"""
     params = config()
 
+
     data_employer = HeadAPI().get_employers()
+    print(data_employer)
     data_vacancies = HeadAPI().load_vacancies()
     create_database('hh_db', params)
     save_data_to_database(data_employer, data_vacancies, 'hh_db', params)
@@ -46,7 +46,7 @@ def main():
                 print(i)
             print("Введите цифру для получения нужной Вам информации")
         elif user_input == '3':
-            avg_salary = db_manager.get_avg_salary()
+            avg_salary = db_manager.get_avg_salary
             print("средняя зарплату по вакансиям:")
             print(avg_salary)
             print("Введите цифру для получения нужной Вам информации")

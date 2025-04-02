@@ -28,18 +28,19 @@ class DBManager:
                             ORDER BY v.salary DESC""")
         return self.cur.fetchall()
 
+    @property
     def get_avg_salary(self):
         """Получает среднюю зарплату по вакансиям"""
         self.cur.execute("""SELECT AVG(salary)
                             FROM vacancies""")
-        result = self.cur.fetchall()
+        result = self.cur.fetchone()
         avg_salary = Decimal(result[0])
         formatted_avg_salary = format(avg_salary, ".2f")
         return formatted_avg_salary
 
     def get_vacancies_with_higher_salary(self):
         """Получает список вакансии с зарплатой выше среднего"""
-        avg_salary = self.get_avg_salary()[0][0]
+        avg_salary = self.get_avg_salary[0][0]
 
         self.cur.execute("""SELECT v.vacancy_name, v.salary
                             FROM vacancies v

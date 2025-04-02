@@ -5,16 +5,12 @@ from typing import Any
 load_dotenv()
 
 
-def get_hh_data(api_key: str, company_id: list[str]) -> list[dict[str, Any]]:
-    """Получение данных о компаниях с помощью API HH"""
-
-
 
 def create_database(database_name: str, params):
     """Создание базы данных для сохранения данных"""
-    conn = psycopg2.connect(dbname="postgres, **params")
+    conn = psycopg2.connect(dbname="hh_vacancy", **params)
     conn.autocommit = True
-    cur = conn.cursor
+    cur = conn.cursor()
 
     cur.execute(f"DROP DATABASE IF EXISTS {database_name}")
     cur.execute(f"CREATE DATABASE {database_name}")
@@ -33,7 +29,7 @@ def create_database(database_name: str, params):
     with conn.cursor() as cur:
         cur.execute("""CREATE TABLE vacancies (vacancy_id INTEGER, 
                                                vacancy_name VARCHAR,
-                                               vacancy_area VARCHAR,)
+                                               vacancy_area VARCHAR,
                                                salary INTEGER,
                                                employer_id INTEGER REFERENCES employers(employer_id),
                                                vacancy_url VARCHAR)""")
@@ -54,8 +50,8 @@ def save_data_to_database(data_employer: list[dict[str, Any]],  data_vacancies: 
                                                 employer["alternate_url"], employer["open_vacancies"]))
         for vacancy in data_vacancies:
             salary_from = vacancy["salary"]["from"] if vacancy["salary"]["from"] is not None else 0
-            cur.execute("""INSERT INTO (vacancy_id, vacancy_name, vacancy_area, salary, employer_id, vacancy_url)
-            VALUES (%s, %s, %s, %s, %s)""", (vacancy.get("id"),vacancy["name"], vacancy["area"]["name"],
+            cur.execute("""INSERT INTO vacancies (vacancy_id, vacancy_name, vacancy_area, salary, employer_id, vacancy_url)
+            VALUES (%s, %s, %s, %s, %s, %s)""", (vacancy.get("id"),vacancy["name"], vacancy["area"]["name"],
                                                  salary_from, vacancy["employer"]["id"], vacancy["alternate_url"]))
 
      conn.commit()

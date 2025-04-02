@@ -3,8 +3,7 @@ import os
 import pytest
 
 from src.api_hh import HeadAPI
-from src.utils import HH
-from src.vacancy import Vacancy
+
 
 
 @pytest.fixture
